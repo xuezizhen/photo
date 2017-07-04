@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <style>
+        .pic {width:980px;height:500px;position: absolute;top:0;left:0;right:0;bottom: 0;margin:auto;}
+        .item { width:196px;height:100px;background:url("image/0.jpg");position: absolute;}
+    </style>
+</head>
+<body>
+<ul style="position: fixed;top: 50px;left:50px;list-style: none;text-align: center">
+    <li><a href="index.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">1</a></li>
+    <li style="margin:5px 0"><a href="2.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">2</a></li>
+    <li><a href="3.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">3</a></li>
+</ul>
+<div class="pic"></div>
+
+</body>
+</html>
+
+<script>
+    var pic=$(".pic");
+    for (var i=0;i<25;i++){
+        /*
+        x  0  -196*1  -196*2  -196*3  -196*4
+        y  0  -100*1  -100*2  -100*3  -100*4
+
+        0  1  2  3  4       x=i%5=0 1 2 3 4 5    y=parseInt(i/5)=0
+        5  6  7  8  9       x=i%5=0 1 2 3 4 5    y=parseInt(i/5)=1
+        10 11 12 13 14      x=i%5=0 1 2 3 4 5    y=parseInt(i/5)=2
+        15 16 17 18 19      x=i%5=0 1 2 3 4 5    y=parseInt(i/5)=3
+        20 21 22 23 24      x=i%5=0 1 2 3 4 5    y=parseInt(i/5)=4
+        */
+        var x=i%5;
+        var y=parseInt(i/5);
+        $("<div class='item'></div>").css({
+            "background-position":(-196)*x+"px "+(-100)*y+"px",
+            "left":x*196+"px",
+            "top":y*100+"px"
+        }).appendTo(pic)
+    }
+
+    $(".item").click(function(){
+        $(".item").each(function(index){
+            var time=index*200;
+
+            $(this).delay(time).animate({"opacity":0.2},200);
+        })
+    });
+
+
+//==================================================递归函数
+/*
+
+    $(".item").click(function(){
+        hide(0)
+    });
+    function hide(index){
+        $(".item").eq(index).delay(300).animate({"opacity":0.1},100,function(){
+            if(index<24)  hide(index+1)
+        })
+    }
+
+*/
+
+</script>
+
+
+
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <style>
+        .pic {width:980px;height:500px;position: absolute;top:0;left:0;right:0;bottom: 0;margin:auto;background: #ccc;}
+        .item { width:196px;height:100px;background:url("image/0.jpg");position: absolute;transition:all 3s;}
+    </style>
+</head>
+<body>
+<ul style="position: fixed;top: 50px;left:50px;list-style: none;text-align: center">
+    <li><a href="index.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">1</a></li>
+    <li style="margin:5px 0"><a href="2.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">2</a></li>
+    <li><a href="3.html" style="display: block;color:#fff;width:20px;height:20px;border-radius: 50%;background: #000;text-decoration: none">3</a></li>
+</ul>
+<div class="pic"></div>
+
+</body>
+</html>
+
+<script>
+    var pic=$(".pic");
+    var bol=false;
+
+    for (var i=0;i<25;i++){
+        var x=i%5;
+        var y=parseInt(i/5);
+        $("<div class='item'></div>").css({
+            "background-position":(-196)*x+"px "+(-100)*y+"px",
+            "left":x*196+"px",
+            "top":y*100+"px"
+        }).appendTo(pic)
+    }
+    pic.click(function(){
+        if(bol){
+            $(".item").each(function(index){
+
+                    var x=index%5;
+                    var y=parseInt(index/5);
+                    $(this).css({
+                        "left":x*196+"px",
+                        "top":y*100+"px"
+                    }).delay(1000).animate({"opacity":1},1000)
+
+            });
+            bol=false;
+        }else {
+            $(".item").each(function(index){
+                $(this).css({
+                    "top": (Math.random()*2000-500)+"px",
+                    "left": (Math.random()*2000-500)+"px"
+                }).delay(1000).animate({"opacity":0},1000)
+            });
+            bol=true;
+        }
+    });
+
+</script>
+
+
+<!--
+
+<script>
+    $(function(){
+        var pic=$(".pic");
+        for(var i=0;i<25;i++){
+            var x = i%5;
+            var y=parseInt(i/5)
+            $("<div class='item'></div>")
+                    .css({
+                        "background-position":x*(-196)+"px "+y*(-100)+"px",
+                        "left":x*196+"px",
+                        "top":y*100+"px"
+                    })
+                    .appendTo(pic);
+        }
+        var items=$(".item");
+        var bol=false;  //状态变量
+        $(".pic").click(function(){
+            if(bol){
+                show();
+            }else{
+                hide();
+            }
+            bol=!bol;
+        });
+        // 递归函数 &#45;&#45; 限制条件  24
+        function show(){
+            items.each(function(index, element) {
+                var x=index%5;
+                var y=parseInt(index/5);
+                $(this).css({
+                    left:x*196+"px",
+                    top:y*100+"px",
+                    opacity:1
+                });
+            });
+        }
+        function hide(){
+            items.each(function(index, element) {
+                var x=Math.random()*6000-3000; // [-3000,3000)
+                var y=Math.random()*6000-1000;
+                $(this).css({
+                    left:x+"px",
+                    top:y+"px",
+                    opacity:0
+                })
+            });
+        }
+    })
+</script>
+
+-->
+
